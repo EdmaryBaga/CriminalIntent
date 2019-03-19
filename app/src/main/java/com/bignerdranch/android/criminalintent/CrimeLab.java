@@ -19,6 +19,7 @@ public class CrimeLab {
         return sCrimeLab;
     }
     private CrimeLab(Context context) {
+
         mCrimes = new ArrayList<>();
     }
 
@@ -32,6 +33,8 @@ public class CrimeLab {
         }
         return mCrimes;
     }
+
+
     public Crime getCrime(UUID id) {
         for (Crime crime : mCrimes) {
             if (crime.getId().equals(id)) {

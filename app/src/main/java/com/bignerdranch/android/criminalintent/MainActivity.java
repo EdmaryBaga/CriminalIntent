@@ -17,7 +17,7 @@ public class MainActivity extends  SingleFragmentActivity{
 
 
 
-  /**
+  /*
    * Esto ahora se llama desde singleFragment Activity y para volcver a usar esta neceditas extends de AppCompatActivity
    * @Override
     protected void onCreate(Bundle savedInstanceState) {
