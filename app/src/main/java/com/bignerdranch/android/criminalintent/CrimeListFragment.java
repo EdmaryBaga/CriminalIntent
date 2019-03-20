@@ -22,7 +22,7 @@ public class CrimeListFragment extends Fragment {
 
     private RecyclerView mCrimeRecyclerView;  //Se crea un RecyclerView
     private CrimeAdapter mAdapter; //para el adaptador en la vista
-   // private Button mContPoliButton;
+    private Button mContPoliButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
@@ -54,13 +54,21 @@ public class CrimeListFragment extends Fragment {
             itemView.setOnClickListener(this);//hace el onclic del contenedor del crimen
             mTitleTextView = (TextView) itemView.findViewById(R.id.crime_title);
             mDateTextView = (TextView) itemView.findViewById(R.id.crime_date);
+            mContPoliButton = (Button) itemView.findViewById(R.id.contact_police_button);
 
         }
         //actualiza informacion del crimen
         public void bind(Crime crime) {
+
             mCrime = crime;
             mTitleTextView.setText(mCrime.getTitle());
             mDateTextView.setText(mCrime.getDate().toString());
+            if (crime.isRequiresPolice()) {
+                mContPoliButton.setVisibility(View.VISIBLE);
+            }
+            else {
+                mContPoliButton.setVisibility(View.GONE);
+            }
         }
 
         //hace el evento del toast al dar clic sobre un crimen
