@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ public class CrimeListFragment extends Fragment {
 
     private RecyclerView mCrimeRecyclerView;  //Se crea un RecyclerView
     private CrimeAdapter mAdapter; //para el adaptador en la vista
+   // private Button mContPoliButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
@@ -96,6 +98,20 @@ public class CrimeListFragment extends Fragment {
         public int getItemCount() {
             return mCrimes.size();
         }
-    }
+
+
+        //mContPoliButton = (Button) findViewById(R.id.contact_police_button);
+        @Override
+        public int getItemViewType(int position) {
+            Crime crime = mCrimes.get(position);
+            if (crime.isRequiresPolice()) {
+                return R.layout.list_item_crime_police;
+
+            } else {
+                return R.layout.list_item_crime;
+            }
+        }
+
+    }//fin crimeAdapter
 
 }
