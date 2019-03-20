@@ -47,8 +47,15 @@ public class CrimePagerActivity extends AppCompatActivity {
         mFirtButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //etFragmentManager().popBackStack();
+                mViewPager.setCurrentItem(0);
+                            } });
 
+
+        mLastButton =(Button) findViewById(R.id.last_button);
+        mLastButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mViewPager.setCurrentItem(mCrimes.size()-1);
             } });
 
 
@@ -69,7 +76,7 @@ public class CrimePagerActivity extends AppCompatActivity {
             }
         });
 
-        /*mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -79,19 +86,20 @@ public class CrimePagerActivity extends AppCompatActivity {
             public void onPageSelected(int position){
                 if(position == 0){
                     mFirtButton.setEnabled(false);
+                    mLastButton.setEnabled(true);
                 }else if(position == mCrimes.size() -1){
                     mLastButton.setEnabled(false);
+                    mFirtButton.setEnabled(true);
                 }else {
                     mFirtButton.setEnabled(true);
                     mLastButton.setEnabled(true);
                 }
-
             }
             @Override
             public void onPageScrollStateChanged(int state) {
 
             }
-        });*/
+        });
 
         //hacemos que la pagina nos muestre el crimen seleccionado no el primer elemento
         for (int i = 0; i < mCrimes.size(); i++) {
