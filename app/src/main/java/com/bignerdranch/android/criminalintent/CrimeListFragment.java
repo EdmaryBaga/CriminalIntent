@@ -4,6 +4,7 @@
 
 package com.bignerdranch.android.criminalintent;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -37,11 +38,24 @@ public class CrimeListFragment extends Fragment {
         return view;
     }
 
+    //para actualizar los datos
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
+    }
+
+
     private void updateUI() {
         CrimeLab crimeLab = CrimeLab.get(getActivity());
         List<Crime> crimes = crimeLab.getCrimes();
-        mAdapter = new CrimeAdapter(crimes);
-        mCrimeRecyclerView.setAdapter(mAdapter);
+        if (mAdapter == null) {
+            mAdapter = new CrimeAdapter(crimes);
+            mCrimeRecyclerView.setAdapter(mAdapter);
+        }else{
+            mAdapter.notifyDataSetChanged();
+        }
+
     }
 
     //creamos el viewHolder
@@ -75,9 +89,15 @@ public class CrimeListFragment extends Fragment {
         //hace el evento del toast al dar clic sobre un crimen
         @Override
         public void onClick(View view) {
-            Toast.makeText(getActivity(),
+            //comenzamos el activity
+            //Intent intent = new Intent(getActivity(), MainActivity.class);
+            //se llama al MainActivity con los datos del crimen con cierto id
+            Intent intent = MainActivity.newIntent(getActivity(), mCrime.getId());
+            startActivity(intent);
+
+            /*Toast.makeText(getActivity(),
                     mCrime.getTitle() + " clicked!", Toast.LENGTH_SHORT)
-                    .show();
+                    .show();*/
         }
 
     }//fin crimeHolder
