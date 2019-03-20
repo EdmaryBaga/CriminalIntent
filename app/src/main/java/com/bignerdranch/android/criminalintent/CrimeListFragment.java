@@ -92,7 +92,10 @@ public class CrimeListFragment extends Fragment {
             //comenzamos el activity
             //Intent intent = new Intent(getActivity(), MainActivity.class);
             //se llama al MainActivity con los datos del crimen con cierto id
-            Intent intent = MainActivity.newIntent(getActivity(), mCrime.getId());
+            //Intent intent = MainActivity.newIntent(getActivity(), mCrime.getId());
+
+            //ahora se llama a CrimePAgeActivity
+            Intent intent = CrimePagerActivity.newIntent(getActivity(), mCrime.getId());
             startActivity(intent);
 
             /*Toast.makeText(getActivity(),
