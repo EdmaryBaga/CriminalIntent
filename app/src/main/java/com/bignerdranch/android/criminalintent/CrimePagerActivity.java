@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toolbar;
 
 import java.util.List;
 import java.util.UUID;
@@ -24,16 +25,11 @@ public class CrimePagerActivity extends AppCompatActivity {
     private Button mLastButton;
 
 
-
-
-
     public static Intent newIntent(Context packageContext, UUID crimeId) {
         Intent intent = new Intent(packageContext, CrimePagerActivity.class);
         intent.putExtra(EXTRA_CRIME_ID, crimeId);
         return intent;
     }
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,14 +46,12 @@ public class CrimePagerActivity extends AppCompatActivity {
                 mViewPager.setCurrentItem(0);
                             } });
 
-
         mLastButton =(Button) findViewById(R.id.last_button);
         mLastButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mViewPager.setCurrentItem(mCrimes.size()-1);
             } });
-
 
         //se crea y manda el ViewPAger
         mViewPager = (ViewPager) findViewById(R.id.crime_view_pager);

@@ -82,8 +82,6 @@ public class CrimeListFragment extends Fragment {
         }
     }
 
-
-
     //hace las opciones del menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
