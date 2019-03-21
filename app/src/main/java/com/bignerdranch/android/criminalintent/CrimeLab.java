@@ -1,6 +1,3 @@
-/*
-* Es el modelo de los crimenes
-* */
 
 package com.bignerdranch.android.criminalintent;
 
@@ -39,19 +36,6 @@ public class CrimeLab {
     }
 
     public List<Crime> getCrimes() {
-
-       /* for (int i = 0; i < 100; i++) {
-            Crime crime = new Crime();
-            crime.setTitle("Crime #" + i);
-            crime.setSolved(i % 2 == 0); // Every other one
-            if(i%2==0){
-                crime.setRequiresPolice(false);
-            }
-            else{
-                crime.setRequiresPolice(true);
-            }
-            mCrimes.add(crime);
-        }*/
         return mCrimes;
     }
 
