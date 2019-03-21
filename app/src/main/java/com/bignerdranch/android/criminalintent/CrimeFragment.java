@@ -98,7 +98,8 @@ public class CrimeFragment  extends Fragment {
 
         mDateButton = (Button) v.findViewById(R.id.crime_date);
         dateFormat = new SimpleDateFormat("EEEE dd MMMM yyyy ", Locale.getDefault());
-        mDateButton.setText(mCrime.getDate());
+        String dat=dateFormat.format(mCrime.getDate());
+        mDateButton.setText(dat);
 
                 //mCrime.getDate().toString());
         mDateButton.setEnabled(false);
