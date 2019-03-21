@@ -1,3 +1,7 @@
+/*
+* Es el modelo de los crimenes
+* */
+
 package com.bignerdranch.android.criminalintent;
 
 import android.content.Context;
@@ -24,6 +28,10 @@ public class CrimeLab {
     }
 
 
+    //para eliminar un crimen
+    public void rmCrime(Crime c) {
+        mCrimes.remove(c);
+    }
 
     //para añadir un crimen
     public void addCrime(Crime c) {
@@ -32,7 +40,7 @@ public class CrimeLab {
 
     public List<Crime> getCrimes() {
 
-        for (int i = 0; i < 100; i++) {
+       /* for (int i = 0; i < 100; i++) {
             Crime crime = new Crime();
             crime.setTitle("Crime #" + i);
             crime.setSolved(i % 2 == 0); // Every other one
@@ -43,7 +51,7 @@ public class CrimeLab {
                 crime.setRequiresPolice(true);
             }
             mCrimes.add(crime);
-        }
+        }*/
         return mCrimes;
     }
 

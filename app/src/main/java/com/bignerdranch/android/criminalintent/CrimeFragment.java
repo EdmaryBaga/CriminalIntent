@@ -4,6 +4,7 @@
 
 package com.bignerdranch.android.criminalintent;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -11,6 +12,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -24,9 +26,7 @@ import java.util.UUID;
 
 
 public class CrimeFragment  extends Fragment {
-
     private static final String ARG_CRIME_ID = "crime_id";
-
     private Crime mCrime;
     private EditText mTitleField;
     private Button mDateButton;
@@ -60,6 +60,17 @@ public class CrimeFragment  extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.page_crime, menu);
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.rm_crime:
+                CrimeLab.get(getActivity()).rmCrime(mCrime);
+                getActivity().finish();
+                return true;
+            default:return super.onOptionsItemSelected(item);
+        }}
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -100,7 +111,6 @@ public class CrimeFragment  extends Fragment {
                                          boolean isChecked) {
                 mCrime.setSolved(isChecked);
             } });
-
         return v;
     }
 }

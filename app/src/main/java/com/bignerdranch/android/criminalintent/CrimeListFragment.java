@@ -1,5 +1,5 @@
 /*
-* View Holder
+* View Holder, se llaman las vistas para cada crimen creado
 * */
 
 package com.bignerdranch.android.criminalintent;
@@ -30,7 +30,8 @@ public class CrimeListFragment extends Fragment {
 
     private RecyclerView mCrimeRecyclerView;  //Se crea un RecyclerView
     private CrimeAdapter mAdapter; //para el adaptador en la vista
-    private Button mContPoliButton;
+    private Button mButtonNoCrime;
+    private View mViewNoCrime;
     private ImageView mSolvedImageView;
     private boolean mSubtitleVisible;
 
@@ -46,6 +47,19 @@ public class CrimeListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_crime_list, container, false);
         mCrimeRecyclerView = (RecyclerView) view.findViewById(R.id.crime_recycler_view);
         mCrimeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mViewNoCrime=(TextView)view.findViewById(R.id.text_no_crime);
+        //para el boton de no hay nada
+        mButtonNoCrime=(Button) view.findViewById(R.id.no_crime);
+        mButtonNoCrime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Crime crime=new Crime();
+                CrimeLab.get(getActivity()).addCrime(crime);
+                Intent intent=CrimePagerActivity.newIntent(getActivity(), crime.getId());
+                startActivity(intent);
+            }
+        });
+
 
         //para hacer persistente el subtitle al rotar
         if (savedInstanceState != null) {
@@ -108,7 +122,9 @@ public class CrimeListFragment extends Fragment {
     private void updateSubtitle() {
         CrimeLab crimeLab = CrimeLab.get(getActivity());
         int crimeCount = crimeLab.getCrimes().size();
-        String subtitle = getString(R.string.subtitle_format, crimeCount);
+        int crimeSize = crimeLab.getCrimes().size();
+        String subtitle = getResources()
+                .getQuantityString(R.plurals.subtitle_plural, crimeSize, crimeSize);
         if (!mSubtitleVisible) {
             subtitle = null;
         }
@@ -119,6 +135,16 @@ public class CrimeListFragment extends Fragment {
     private void updateUI() {
         CrimeLab crimeLab = CrimeLab.get(getActivity());
         List<Crime> crimes = crimeLab.getCrimes();
+
+        if(crimes.size() != 0) {
+            mButtonNoCrime.setVisibility(View.INVISIBLE);
+            mViewNoCrime.setVisibility(View.GONE);
+        }
+        else {
+            mButtonNoCrime.setVisibility(View.VISIBLE);
+            mViewNoCrime.setVisibility(View.VISIBLE);
+        }
+
         if (mAdapter == null) {
             mAdapter = new CrimeAdapter(crimes);
             mCrimeRecyclerView.setAdapter(mAdapter);
@@ -136,13 +162,12 @@ public class CrimeListFragment extends Fragment {
         private Crime mCrime;
 
         public CrimeHolder(LayoutInflater inflater, ViewGroup parent) {
-            // r=getItemViewType(mCrime.getId());
+
             super(inflater.inflate(R.layout.list_item_crime, parent, false));
             itemView.setOnClickListener(this);//hace el onclic del contenedor del crimen
             mTitleTextView = (TextView) itemView.findViewById(R.id.crime_title);
             mDateTextView = (TextView) itemView.findViewById(R.id.crime_date);
-            //mContPoliButton = (Button) itemView.findViewById(R.id.contact_police_button);
-        }
+                   }
 
 
         //actualiza informacion del crimen
@@ -159,18 +184,10 @@ public class CrimeListFragment extends Fragment {
         //hace el evento del toast al dar clic sobre un crimen
         @Override
         public void onClick(View view) {
-            //comenzamos el activity
-            //Intent intent = new Intent(getActivity(), MainActivity.class);
-            //se llama al MainActivity con los datos del crimen con cierto id
-            //Intent intent = MainActivity.newIntent(getActivity(), mCrime.getId());
-
-            //ahora se llama a CrimePAgeActivity
+                      //ahora se llama a CrimePAgeActivity
             Intent intent = CrimePagerActivity.newIntent(getActivity(), mCrime.getId());
             startActivity(intent);
 
-            /*Toast.makeText(getActivity(),
-                    mCrime.getTitle() + " clicked!", Toast.LENGTH_SHORT)
-                    .show();*/
         }
 
     }//fin crimeHolder
@@ -182,6 +199,8 @@ public class CrimeListFragment extends Fragment {
             mCrimes = crimes;
         }
 
+
+        //if
         @NonNull
         @Override
         public CrimeHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
