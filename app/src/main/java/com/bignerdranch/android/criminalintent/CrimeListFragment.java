@@ -26,6 +26,8 @@ import java.util.List;
 
 public class CrimeListFragment extends Fragment {
 
+    private static final String SAVED_SUBTITLE_VISIBLE = "subtitle";
+
     private RecyclerView mCrimeRecyclerView;  //Se crea un RecyclerView
     private CrimeAdapter mAdapter; //para el adaptador en la vista
     private Button mContPoliButton;
@@ -45,8 +47,11 @@ public class CrimeListFragment extends Fragment {
         mCrimeRecyclerView = (RecyclerView) view.findViewById(R.id.crime_recycler_view);
         mCrimeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        //para hacer persistente el subtitle al rotar
+        if (savedInstanceState != null) {
+            mSubtitleVisible = savedInstanceState.getBoolean(SAVED_SUBTITLE_VISIBLE);
+        }
         updateUI();//para que se muestre la actualizacion del UI
-
         return view;
     }
 
@@ -55,6 +60,13 @@ public class CrimeListFragment extends Fragment {
     public void onResume() {
         super.onResume();
         updateUI();
+    }
+
+    //visibilidad del subtittle al rotar
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(SAVED_SUBTITLE_VISIBLE, mSubtitleVisible);
     }
 
     //creamos el menu, el icono ya existe en el xml
@@ -115,7 +127,7 @@ public class CrimeListFragment extends Fragment {
         }else{
             mAdapter.notifyDataSetChanged();
         }
-
+        updateSubtitle();
     }
 
     //creamos el viewHolder
