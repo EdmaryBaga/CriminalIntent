@@ -23,6 +23,11 @@ public class CrimeLab {
         mCrimes = new ArrayList<>();
     }
 
+    //para añadir un crimen
+    public void addCrime(Crime c) {
+        mCrimes.add(c);
+    }
+
     public List<Crime> getCrimes() {
 
         for (int i = 0; i < 100; i++) {

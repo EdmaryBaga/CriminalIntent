@@ -107,11 +107,6 @@ public class CrimePagerActivity extends AppCompatActivity {
                 mViewPager.setCurrentItem(i);
                 break; }
         }
-
-
-
-
-
     }
 
 }
